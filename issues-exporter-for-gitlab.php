@@ -3,7 +3,7 @@
  * Plugin Name:       Issues Exporter for GitLab
  * Plugin URI:        https://wordpress.org/plugins/issues-exporter-for-gitlab/
  * Description:       Export GitLab issues to CSV with live AJAX progress, file listing, and cleanup.
- * Version:           1.0.0
+ * Version:           1.0
  * Author:            Shitalben Parmar
  * Author URI:        https://profiles.wordpress.org/shitalparmar443/
  * License:           GPL-2.0-or-later
