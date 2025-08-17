@@ -16,20 +16,37 @@ function issues_exporter_for_gitlab_admin_page() {
     $iefg_project_id   = esc_attr( get_option( 'issues_exporter_for_gitlab_project_id', '' ) );
     $iefg_access_token = esc_attr( get_option( 'issues_exporter_for_gitlab_access_token', '' ) );
 
-    $export_dir = WP_CONTENT_DIR . '/issues-exporter-for-gitlab';
-    $export_url = content_url( '/issues-exporter-for-gitlab' );
-    $files      = [];
+    $upload_dir = wp_upload_dir();
 
+    // Define directory path and URL
+    $export_dir = trailingslashit( $upload_dir['basedir'] ) . 'issues-exporter-for-gitlab';
+    $export_url = trailingslashit( $upload_dir['baseurl'] ) . 'issues-exporter-for-gitlab';
+
+    // Make sure the directory exists
+    if ( ! file_exists( $export_dir ) ) {
+        wp_mkdir_p( $export_dir );
+    }
+
+    // Sanitize file name if it's set
+    if ( isset( $file_name ) && ! empty( $file_name ) ) {
+        $file_name = sanitize_file_name( $file_name );
+        $file_path = trailingslashit( $export_dir ) . $file_name;
+    }
+
+    $files = [];
+
+    // Collect CSV files
     if ( file_exists( $export_dir ) ) {
         foreach ( glob( $export_dir . '/*.csv' ) as $file ) {
             $files[] = [
                 'name'     => basename( $file ),
-                'url'      => $export_url . '/' . basename( $file ),
+                'url'      => trailingslashit( $export_url ) . basename( $file ),
                 'size'     => filesize( $file ),
                 'modified' => filemtime( $file ),
             ];
         }
 
+        // Sort files by last modified (newest first)
         usort( $files, function( $a, $b ) {
             return $b['modified'] - $a['modified'];
         } );
