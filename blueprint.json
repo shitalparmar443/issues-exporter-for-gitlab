@@ -23,7 +23,7 @@
     },
     {
       "step": "activatePlugin",
-      "pluginFolderName": "issues-exporter-for-gitlab"
+      "pluginPath": "issues-exporter-for-gitlab/issues-exporter-for-gitlab.php"
     },
     {
       "step": "writeFile",
