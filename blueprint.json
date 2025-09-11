@@ -1,0 +1,48 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "wp": "latest",
+    "php": "8.1"
+  },
+  "landingPage": "/wp-admin/admin.php?page=issues-exporter-for-gitlab",
+  "siteOptions": {
+    "blogname": "Issues Exporter for GitLab — Demo",
+    "blogdescription": "Demo environment for the Issues Exporter for GitLab plugin"
+  },
+  "login": {
+    "username": "admin",
+    "password": "password"
+  },
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "issues-exporter-for-gitlab"
+      }
+    },
+    {
+      "step": "activatePlugin",
+      "pluginFolderName": "issues-exporter-for-gitlab"
+    },
+    {
+      "step": "writeFile",
+      "file": {
+        "path": "wp-content/uploads/issues-exporter-for-gitlab/issues-exporter-sample.txt",
+        "contents": "This file exists to demonstrate that the demo environment has writable uploads and to provide a sample export placeholder."
+      }
+    },
+    {
+      "step": "createPage",
+      "page": {
+        "title": "Export Demo",
+        "content": "Use the Issues Exporter for GitLab plugin (Settings → Issues Exporter for GitLab) to configure a Project ID and token, then run an export. (Demo site — no real tokens.)",
+        "status": "publish"
+      }
+    },
+    {
+      "step": "navigate",
+      "url": "/wp-admin/plugins.php"
+    }
+  ]
+}
